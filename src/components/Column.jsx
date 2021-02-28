@@ -8,6 +8,17 @@ function Column(props) {
         cards,
     } = props;
 
+    function filterCards(column) {
+        const filteredCards = []
+
+        cards.forEach(card => {
+            if (card.status === column) {
+                filteredCards.push(card)
+            }
+        })
+        return filteredCards
+    }
+
     return (
         <section className="board__column">
             <div className="board__header">
@@ -29,7 +40,7 @@ function Column(props) {
             </div>
             <div className="board__cards-container" data-column={column}>
                 {
-                    cards ? cards.map(card => {
+                    cards ? filterCards(column).map(card => {
                         return <Card
                             title = {card.title}
                             description = {card.description}
