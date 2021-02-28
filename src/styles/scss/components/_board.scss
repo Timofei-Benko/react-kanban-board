@@ -1,0 +1,112 @@
+.board{
+    @include flexible(center, flex-start, row, nowrap);
+    position: relative;
+    width: 90vw;
+    height: 80vh;
+    padding: 1em 2em;
+    border-radius: 10px;
+    overflow-y: scroll;
+    background-color: #f1eeee;
+    &__column-container{
+        @include flexible(flex-start, flex-start, row, nowrap);
+        min-height: max-content;
+    }
+    &__column{
+        width: 100%;
+        max-width: 300px;
+        min-width: 215px;
+        &:nth-of-type(2){
+            margin: 0 2em;
+        }
+    }
+    &__header{
+        @include flexible(space-between, center, row, nowrap);
+        margin-bottom: 1em;
+        padding: .5em;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 1px 1px 2px $colorGrayLight, -1px -1px 2px $colorGrayLight;
+        &-title{
+            margin-right: 1em;
+            &--toDo{
+                @include label(1rem, $colorGrayLight, .7em);
+            }
+            &--inProgress{
+                @include label(1rem, $colorLavender, .7em);
+            }
+            &--done{
+                @include label(1rem, $colorGreen, .7em);
+            }
+        }
+        &-counter{
+            width: max-content;
+            margin-right: auto;
+            text-align: center;
+            &--toDo{
+                @extend .board__header-title--toDo;
+            }
+            &--inProgress{
+                @extend .board__header-title--inProgress;
+            }
+            &--done{
+                @extend .board__header-title--done;
+            }
+        }
+        &-clear-btn{
+            width: 36px;
+            border: none;
+            background: transparent;
+            &:focus,
+            &:focus svg{ // in order for the btn to able to focus on 'tab' key press
+                outline: none;
+                fill: $colorGray;
+            }
+            & svg{
+                fill: #a8a6a6;
+                transition: all .2s ease-in-out;
+                &:hover{
+                    fill: $colorGray;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    &__add-new-btn{
+        width: 100%;
+        height: 50px;
+        border: 1px solid $colorGray;
+        border-radius: 10px;
+        font-family: 'SF Pro Displkay Medium', sans-serif;
+        transition: all .1s ease-in-out;
+        &:hover, 
+        &:focus{
+            background-color: #d8d5d5;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+    &__prev,
+    &__next{
+        position: fixed;
+        z-index: 5;
+        top: 50%;
+        height: 30px;
+        width: 30px;
+        background-color: transparent;
+        border: none;
+        @include rwd(800) {
+            display: none;
+        }
+        &:hover,
+        &:focus{
+            outline: none;
+            cursor: pointer;
+        }
+    }
+    &__prev{
+        left: 15px;
+    }
+    &__next{
+        right: 15px;
+    }
+}

@@ -1,0 +1,18 @@
+html{
+    font-family: 'SF Pro Displkay Regular', sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+}
+.wrap{
+    width: 100%;
+    max-width: 2048px;
+    padding: 1rem 1rem .5rem 1rem;
+    @include rwd(320){
+        height: 75vh;
+    }
+    @include rwd(768){
+        height: 83vh;
+    }
+}

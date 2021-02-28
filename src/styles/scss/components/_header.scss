@@ -1,0 +1,19 @@
+.header{
+    @include flexible(flex-start, flex-start, column, nowrap);
+    &__title{
+        margin: 0 5px 0 0;
+        font-family: 'SF Compact Text Bold', sans-serif;
+        color: $colorGrayDark;
+        @include rwd(300){
+            font-size: 2rem;
+        }
+        @include rwd(500){
+            font-size: 3rem;
+        }
+    }
+    &__subtitle{
+        margin: 0 0 2em 0;
+        font-size: 1rem;
+        color: $colorGray;
+    }
+}
