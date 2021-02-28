@@ -9,7 +9,7 @@ function Column(props) {
     } = props;
 
     return (
-        <section className="board__column board__column--to-do " data-column="toDo">
+        <section className="board__column">
             <div className="board__header">
                 <h2 className={`board__header-title board__header-title--${column}`}>{columnName}</h2>
                 <div className={`board__header-counter board__header-counter--${column}`} data-counter={column}>0</div>
@@ -38,7 +38,6 @@ function Column(props) {
                         />
                     })
                         : null
-
                 }
             </div>
 
