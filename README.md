@@ -1,4 +1,4 @@
-#React Kanban Board
+# React Kanban Board
 
 Putting one of my [previous vanilla JS projects](https://github.com/Timofei-Benko/kanban-board) on React rails.
 
