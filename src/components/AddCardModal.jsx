@@ -28,18 +28,15 @@ function AddCardModal(props) {
                 status: 'toDo',
                 id: uuidv4(),
             }
-            console.log(card)
 
             if (cards.length === 0) {
                 setCards([card])
                 setModalVisibility(false)
-                console.log(cards, true)
                 return
             }
 
             setCards(prevState => [...prevState, card])
             setModalVisibility(false)
-            console.log(cards)
         }
     }
 

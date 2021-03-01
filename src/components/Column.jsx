@@ -6,16 +6,20 @@ function Column(props) {
         columnName,
         setModalVisibility,
         cards,
+        setCards,
     } = props;
 
     function filterCards(column) {
         const filteredCards = []
 
-        cards.forEach(card => {
-            if (card.status === column) {
-                filteredCards.push(card)
-            }
-        })
+        if (cards) {
+            cards.forEach(card => {
+                if (card.status === column) {
+                    filteredCards.push(card)
+                }
+            })
+        }
+
         return filteredCards
     }
 
@@ -23,7 +27,7 @@ function Column(props) {
         <section className="board__column">
             <div className="board__header">
                 <h2 className={`board__header-title board__header-title--${column}`}>{columnName}</h2>
-                <div className={`board__header-counter board__header-counter--${column}`} data-counter={column}>0</div>
+                <div className={`board__header-counter board__header-counter--${column}`} data-counter={column}>{cards ? filterCards(column).length : 0}</div>
 
                 <button className="board__header-clear-btn"
                         data-column={column}>
@@ -42,9 +46,13 @@ function Column(props) {
                 {
                     cards ? filterCards(column).map(card => {
                         return <Card
+                            cards = {cards}
+                            setCards = {setCards}
+                            column = {column}
                             title = {card.title}
                             description = {card.description}
                             date = {card.date}
+                            id = {card.id}
                             key = {card.id}
                         />
                     })

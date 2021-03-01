@@ -19,6 +19,7 @@ function App() {
               <Main
                   setModalVisibility = { setModalVisibility }
                   cards = { cards }
+                  setCards = { setCards }
               />
               <AddCardModal
                   modalVisibility = { modalVisibility }

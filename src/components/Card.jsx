@@ -1,9 +1,40 @@
 export default (props) => {
     const {
+        cards,
+        setCards,
+        column,
         title,
         description,
         date,
+        id,
     } = props;
+
+    function handleMoveCard(id) {
+        if (column === 'toDo') {
+            const prevState = [...cards]
+            prevState.forEach(card => {
+                return card.id === id ? card.status = 'inProgress' : null
+            })
+            setCards([...prevState])
+        }
+
+        if (column === 'inProgress') {
+            const prevState = [...cards]
+            prevState.forEach(card => {
+                return card.id === id ? card.status = 'done' : null
+            })
+            setCards([...prevState])
+        }
+
+        if (column === 'done') {
+            const prevState = [...cards]
+            prevState.forEach(card => {
+                return card.id === id ? card.status = 'toDo' : null
+            })
+            setCards([...prevState])
+        }
+        console.log(cards)
+    }
 
     return (
         <div className="board__card" data-card="card">
@@ -11,7 +42,9 @@ export default (props) => {
             <p className="board__card-copy">{description}</p>
             <div className="board__card-footer">
                 <p className="board__card-date">{date}</p>
-                <button className="board__card-move-btn">
+                <button className="board__card-move-btn"
+                        onClick={() => handleMoveCard(id)}
+                >
                     <svg className="board__card-move-btn-icon" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 512.002 512.002">
                         <defs/>

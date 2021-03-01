@@ -5,7 +5,8 @@ import Column from "./Column";
 function Main(props) {
     const {
         setModalVisibility,
-        cards
+        cards,
+        setCards,
     } = props;
     return (
         <div>
@@ -16,14 +17,21 @@ function Main(props) {
                     columnName={'To Do'}
                     setModalVisibility = { setModalVisibility }
                     cards = { cards }
+                    setCards = { setCards }
                 />
                 <Column
                     column={'inProgress'}
                     columnName={'In Progress'}
+                    setModalVisibility = { setModalVisibility }
+                    cards = { cards }
+                    setCards = { setCards }
                 />
                 <Column
                     column={'done'}
                     columnName={'Done'}
+                    setModalVisibility = { setModalVisibility }
+                    cards = { cards }
+                    setCards = { setCards }
                 />
             </div>
         </main>
