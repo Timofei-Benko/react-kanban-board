@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import AddCardModal from "./components/AddCardModal";
 
-import './styles/scss/main.scss'
+import './styles/scss/main.scss';
 
 function App() {
 
@@ -24,14 +24,13 @@ function App() {
               />
               <Footer/>
               <AddCardModal
-                  modalVisibility = { modalVisibility }
                   setModalVisibility = { setModalVisibility }
                   modalClasses = { showHideModalClasses }
                   cards = { cards }
                   setCards = { setCards }
               />
         </div>
-    );
-    }
+    )
+}
 
 export default App;

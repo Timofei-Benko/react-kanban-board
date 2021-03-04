@@ -23,6 +23,23 @@ function Column(props) {
         return filteredCards
     }
 
+    function handleDeleteAllCards(column) {
+        const prevState = [...cards]
+
+        let counter = filterCards(column).length
+
+        while (counter > 0) {
+            prevState.forEach(card => {
+                if (card.status === column) {
+                    prevState.splice(prevState.indexOf(card), 1)
+                }
+            })
+            counter--
+        }
+
+        setCards([...prevState])
+    }
+
     return (
         <section className="board__column">
             <div className="board__header">
@@ -30,7 +47,9 @@ function Column(props) {
                 <div className={`board__header-counter board__header-counter--${column}`} data-counter={column}>{cards ? filterCards(column).length : 0}</div>
 
                 <button className="board__header-clear-btn"
-                        data-column={column}>
+                        data-column={column}
+                        onClick={() => handleDeleteAllCards(column)}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 0 427 427.001">
                         <defs/>
                         <path
@@ -72,4 +91,4 @@ function Column(props) {
     )
 }
 
-export default Column
+export default Column;

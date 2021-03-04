@@ -1,4 +1,4 @@
-export default (props) => {
+function Card(props) {
     const {
         cards,
         setCards,
@@ -33,7 +33,15 @@ export default (props) => {
             })
             setCards([...prevState])
         }
-        console.log(cards)
+    }
+
+    function handleDeleteCard(id) {
+        if (cards) {
+            const prevState = [...cards]
+            const cardToRemove = prevState.find(card => card.id === id)
+            prevState.splice(prevState.indexOf(cardToRemove), 1)
+            setCards([...prevState])
+        }
     }
 
     return (
@@ -52,7 +60,9 @@ export default (props) => {
                             d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061 3.883 3.89 8.97 5.835 14.057 5.835 5.074 0 10.141-1.932 14.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"/>
                     </svg>
                 </button>
-                <button className="board__card-remove-btn">
+                <button className="board__card-remove-btn"
+                        onClick={() => handleDeleteCard(id)}
+                >
                     <svg className="board__card-remove-btn-icon" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 414.298 414.299">
                         <defs/>
@@ -64,3 +74,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default Card;

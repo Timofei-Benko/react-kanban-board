@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import Column from "./Column";
 
 function Main(props) {
