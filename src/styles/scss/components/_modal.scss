@@ -127,7 +127,7 @@
             border: 1px solid $colorGray;
             border-radius: 5px;
             outline: none;
-            resize: vertical;
+            resize: none;
             &::placeholder {
                 color: $colorGray;
             }
