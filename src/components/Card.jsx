@@ -1,19 +1,16 @@
 function Card(props) {
     const {
+        column,
         cards,
         setCards,
-        column,
-        title,
-        description,
-        date,
-        id,
+        cardObject,
     } = props;
 
     function handleMoveCard(id) {
         if (column === 'toDo') {
             const prevState = [...cards]
             prevState.forEach(card => {
-                return card.id === id ? card.status = 'inProgress' : null
+                return card.id === cardObject.id ? card.status = 'inProgress' : null
             })
             setCards([...prevState])
         }
@@ -46,28 +43,41 @@ function Card(props) {
 
     return (
         <div className="board__card" data-card="card">
-            <h3 className="board__card-title">{title}</h3>
-            <p className="board__card-copy">{description}</p>
+            <h3 className="board__card-title">{cardObject.title}</h3>
+            <p className="board__card-copy">{cardObject.description}</p>
             <div className="board__card-footer">
-                <p className="board__card-date">{date}</p>
+                <p className="board__card-date">{cardObject.date}</p>
                 <button className="board__card-move-btn"
-                        onClick={() => handleMoveCard(id)}
+                        onClick={() => handleMoveCard(cardObject.id)}
                 >
-                    <svg className="board__card-move-btn-icon" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 512.002 512.002">
-                        <defs/>
-                        <path
-                            d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061 3.883 3.89 8.97 5.835 14.057 5.835 5.074 0 10.141-1.932 14.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"/>
-                    </svg>
+                    {
+                        column === 'done' ?
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 className="board__card-move-to-frst-clmn-i" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                <path
+                                    d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                            </svg>
+
+                            :
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 className="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                    }
+
                 </button>
                 <button className="board__card-remove-btn"
-                        onClick={() => handleDeleteCard(id)}
+                        onClick={() => handleDeleteCard(cardObject.id)}
                 >
-                    <svg className="board__card-remove-btn-icon" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 414.298 414.299">
-                        <defs/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         className="bi bi-x" viewBox="0 0 16 16">
                         <path
-                            d="M3.663 410.637c2.441 2.44 5.64 3.661 8.839 3.661 3.199 0 6.398-1.221 8.839-3.661l185.809-185.81 185.81 185.811c2.44 2.44 5.641 3.661 8.84 3.661 3.198 0 6.397-1.221 8.839-3.661 4.881-4.881 4.881-12.796 0-17.679l-185.811-185.81 185.811-185.81c4.881-4.882 4.881-12.796 0-17.678-4.882-4.882-12.796-4.882-17.679 0l-185.81 185.81L21.34 3.663c-4.882-4.882-12.796-4.882-17.678 0-4.882 4.881-4.882 12.796 0 17.678l185.81 185.809L3.663 392.959c-4.882 4.882-4.882 12.797 0 17.678z"/>
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                     </svg>
                 </button>
             </div>

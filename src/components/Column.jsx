@@ -1,4 +1,5 @@
 import Card from "./Card";
+import {useSelector} from "react-redux";
 
 function Column(props) {
     const {
@@ -9,11 +10,13 @@ function Column(props) {
         setCards,
     } = props;
 
+    const cardsState = useSelector(state => state.cards);
+
     function filterCards(column) {
         const filteredCards = []
 
-        if (cards) {
-            cards.forEach(card => {
+        if (cardsState.length) {
+            cardsState.forEach(card => {
                 if (card.status === column) {
                     filteredCards.push(card)
                 }
@@ -63,28 +66,22 @@ function Column(props) {
             </div>
             <div className="board__cards-container" data-column={column}>
                 {
-                    cards ? filterCards(column).map(card => {
+                    cardsState.length !== 0 && filterCards(column).map(card => {
                         return <Card
                             cards = {cards}
                             setCards = {setCards}
                             column = {column}
-                            title = {card.title}
-                            description = {card.description}
-                            date = {card.date}
-                            id = {card.id}
-                            key = {card.id}
+                            cardObject = {card}
                         />
                     })
-                        : null
                 }
             </div>
 
             {
-                column === 'toDo' ? <button className="board__add-new-btn"
+                column === 'toDo' && <button className="board__add-new-btn"
                                             onClick={() => setModalVisibility(true)}
                                     >+ Add new
                                     </button>
-                                    : null
             }
 
         </section>

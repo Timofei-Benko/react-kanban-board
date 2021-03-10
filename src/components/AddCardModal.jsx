@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
 function AddCardModal(props) {
@@ -8,6 +9,9 @@ function AddCardModal(props) {
         cards,
         setCards,
     } = props;
+
+    const cardsState = useSelector(state => state);
+    const dispatch = useDispatch();
 
     const [titleVal, setTitleVal] = useState('');
     const [descriptionVal, setDescriptionVal] = useState('');
@@ -38,14 +42,20 @@ function AddCardModal(props) {
             }
 
             if (cards.length === 0) {
+                dispatch({
+                    type: 'ADD_CARD',
+                    payload: card,
+                })
                 setCards([card])
-                setModalVisibility(false)
-                setTitleVal('')
-                setDescriptionVal('')
-                return
+            } else {
+                dispatch({
+                    type: 'ADD_CARD',
+                    payload: card,
+                })
+                setCards(prevState => [...prevState, card])
+
             }
 
-            setCards(prevState => [...prevState, card])
             setModalVisibility(false)
             setTitleVal('')
             setDescriptionVal('')
