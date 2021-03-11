@@ -1,5 +1,5 @@
 import Card from "./Card";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 function Column(props) {
     const {
@@ -11,6 +11,7 @@ function Column(props) {
     } = props;
 
     const cardsState = useSelector(state => state.cards);
+    const dispatch = useDispatch()
 
     function filterCards(column) {
         const filteredCards = []
@@ -26,32 +27,24 @@ function Column(props) {
         return filteredCards
     }
 
-    function handleDeleteAllCards(column) {
-        const prevState = [...cards]
+    function handleClearColumn(column) {
 
         let counter = filterCards(column).length
 
-        while (counter > 0) {
-            prevState.forEach(card => {
-                if (card.status === column) {
-                    prevState.splice(prevState.indexOf(card), 1)
-                }
-            })
-            counter--
-        }
-
-        setCards([...prevState])
+        dispatch({
+            type: 'CLEAR_COLUMN',
+            payload: [counter, column]
+        })
     }
 
     return (
         <section className="board__column">
             <div className="board__header">
                 <h2 className={`board__header-title board__header-title--${column}`}>{columnName}</h2>
-                <div className={`board__header-counter board__header-counter--${column}`} data-counter={column}>{cards ? filterCards(column).length : 0}</div>
+                <div className={`board__header-counter board__header-counter--${column}`}>{cardsState.length ? filterCards(column).length : 0}</div>
 
                 <button className="board__header-clear-btn"
-                        data-column={column}
-                        onClick={() => handleDeleteAllCards(column)}
+                        onClick={() => handleClearColumn(column)}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 0 427 427.001">
                         <defs/>
@@ -64,7 +57,7 @@ function Column(props) {
                     </svg>
                 </button>
             </div>
-            <div className="board__cards-container" data-column={column}>
+            <div className="board__cards-container">
                 {
                     cardsState.length !== 0 && filterCards(column).map(card => {
                         return <Card
@@ -72,6 +65,7 @@ function Column(props) {
                             setCards = {setCards}
                             column = {column}
                             cardObject = {card}
+                            key = {card.id}
                         />
                     })
                 }

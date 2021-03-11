@@ -1,16 +1,13 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
 function AddCardModal(props) {
     const {
         setModalVisibility,
         modalClasses,
-        cards,
-        setCards,
     } = props;
 
-    const cardsState = useSelector(state => state);
     const dispatch = useDispatch();
 
     const [titleVal, setTitleVal] = useState('');
@@ -18,8 +15,8 @@ function AddCardModal(props) {
     const [displayTitleError, setDisplayTitleError] = useState(false);
     const [displayDescriptionError, setDisplayDescriptionError] = useState(false);
 
-    const showHideTitleError = displayTitleError ? 'active' : null;
-    const showHideDescriptionError = displayDescriptionError ? 'active' : null;
+    const showHideTitleError = displayTitleError && 'active';
+    const showHideDescriptionError = displayDescriptionError && 'active';
 
     const handleModalClose = () => {
         setModalVisibility(false)
@@ -29,32 +26,19 @@ function AddCardModal(props) {
         setDisplayDescriptionError(false)
     }
 
-    const getDate = () => new Date(Date.now()).toLocaleDateString();
-
     const handleCardSave = () => {
         if (titleVal && descriptionVal) {
-            const card = {
-                title: titleVal,
-                description: descriptionVal,
-                date: getDate(),
-                status: 'toDo',
-                id: uuidv4(),
-            }
 
-            if (cards.length === 0) {
-                dispatch({
-                    type: 'ADD_CARD',
-                    payload: card,
-                })
-                setCards([card])
-            } else {
-                dispatch({
-                    type: 'ADD_CARD',
-                    payload: card,
-                })
-                setCards(prevState => [...prevState, card])
-
-            }
+            dispatch({
+                type: 'ADD_CARD',
+                payload: {
+                    title: titleVal,
+                    description: descriptionVal,
+                    date: new Date(Date.now()).toLocaleDateString(),
+                    status: 'toDo',
+                    id: uuidv4(),
+                },
+            })
 
             setModalVisibility(false)
             setTitleVal('')
@@ -95,8 +79,9 @@ function AddCardModal(props) {
                            handleTitleKeyUp()
                        }}
                 />
-                <span className={`error-message error-message--title ${showHideTitleError}`} data-input_type="title">This field is
-                        required</span>
+                <span className={`error-message error-message--title ${showHideTitleError}`}>
+                    This field is required
+                </span>
                     <textarea className="modal__description modal__description--input"
                               data-input_type="description"
                               name=""
@@ -109,8 +94,9 @@ function AddCardModal(props) {
                                   handleDescriptionKeyUp()
                               }}
                     />
-                    <span className={`error-message error-message--description ${showHideDescriptionError}`} data-input_type="description">This field is
-                        required</span>
+                    <span className={`error-message error-message--description ${showHideDescriptionError}`}>
+                        This field is required
+                    </span>
                     <button className="modal__save-btn"
                             onClick={handleCardSave}
                     >Save
