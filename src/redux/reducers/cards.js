@@ -9,7 +9,7 @@ const cardsReducer = (state = initState, action) => {
         case 'ADD_CARD': {
             const { title, description, date, id } = payload
 
-            return {
+            const modifiedState = {
                 ...state,
                 cards: [
                     ...state.cards,
@@ -21,6 +21,10 @@ const cardsReducer = (state = initState, action) => {
                         id,
                     }
                 ]
+            }
+
+            return {
+                ...modifiedState
             }
         }
         case 'MOVE_CARD': {
@@ -51,14 +55,12 @@ const cardsReducer = (state = initState, action) => {
         case 'DELETE_CARD': {
             let { id } = payload;
 
-            const cardToRemoveIdx = state.cards.findIndex(card => card.id === id);
-
-            state.cards.splice(cardToRemoveIdx, 1);
+            const newState = state.cards.filter(card => card.id !== id)
 
             return  {
                 ...state,
                 cards: [
-                    ...state.cards,
+                    ...newState,
                 ]
             }
         }

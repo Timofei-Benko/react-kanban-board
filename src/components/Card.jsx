@@ -8,15 +8,6 @@ function Card(props) {
 
     const dispatch = useDispatch();
 
-    // function handleDeleteCard(id) {
-    //     if (cards) {
-    //         const prevState = [...cards]
-    //         const cardToRemove = prevState.find(card => card.id === id)
-    //         prevState.splice(prevState.indexOf(cardToRemove), 1)
-    //         setCards([...prevState])
-    //     }
-    // }
-
     return (
         <div className="board__card">
             <h3 className="board__card-title">{cardObject.title}</h3>
@@ -53,7 +44,9 @@ function Card(props) {
                 <button className="board__card-remove-btn"
                         onClick={() => dispatch({
                             type: 'DELETE_CARD',
-                            payload: cardObject.id,
+                            payload: {
+                                id: cardObject.id,
+                            },
                         })}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

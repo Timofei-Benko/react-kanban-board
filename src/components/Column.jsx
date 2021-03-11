@@ -6,12 +6,10 @@ function Column(props) {
         column,
         columnName,
         setModalVisibility,
-        cards,
-        setCards,
     } = props;
 
     const cardsState = useSelector(state => state.cards);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     function filterCards(column) {
         const filteredCards = []
@@ -61,8 +59,6 @@ function Column(props) {
                 {
                     cardsState.length !== 0 && filterCards(column).map(card => {
                         return <Card
-                            cards = {cards}
-                            setCards = {setCards}
                             column = {column}
                             cardObject = {card}
                             key = {card.id}
